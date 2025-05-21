@@ -72,7 +72,7 @@
 
 
 
-        <Button Grid.Row="4" x:Name="addPageBtn" IsVisible="True" Text="Lisää uusi tavara" Padding="20" FontSize="26"
+        <Button Grid.Row="4" x:Name="addPageBtn" Clicked="addPageBtn_Clicked" IsVisible="True" Text="Lisää uusi tavara" Padding="20" FontSize="26"
             Margin="40,10,40,10" />
 
 

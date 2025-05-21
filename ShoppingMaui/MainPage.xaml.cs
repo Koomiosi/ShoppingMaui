@@ -58,6 +58,12 @@ namespace ShoppingMaui
             kerätty_nappi.IsVisible = true;
         }
 
+        private async void addPageBtn_Clicked(object sender, EventArgs e)
+        {
+            var addingPage = addingPage(this);
+            await Shell.Current.Navigation.PushModealAsync(addingPage);
+        }
+
     }
 
 }
