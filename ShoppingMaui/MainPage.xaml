@@ -77,7 +77,10 @@
 
 
         <Frame Grid.Row="5" BackgroundColor="Black" BorderColor="Black" Padding="70, 20, 40, 50" VerticalOptions="EndAndExpand">
-            <Label Text="Sujuvaa ostosten hallintaa" TextColor="Orange" FontSize="20"/>
+            <VerticalStackLayout>
+                <Label Text="Sujuvaa ostosten hallintaa" TextColor="Orange" FontSize="20"/>
+                <Label x:Name="autoupdateLabel" TextColor="Red" FontSize="20"/>
+            </VerticalStackLayout>
         </Frame>
 
 

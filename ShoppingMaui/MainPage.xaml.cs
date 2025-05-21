@@ -10,10 +10,34 @@ namespace ShoppingMaui
         {
             InitializeComponent();
             LoadDataFromRestAPI();
+            AutoUpdate();
+        }
+
+        public async Task AutoUpdate()
+        {
+            int nextUpdate = 80; //Aika sekunteina paivitysten valissa
+
+            for (int i = 0; i < 1000; i++)
+            {
+                await Task.Delay(1000);
+                nextUpdate--;
+                if (nextUpdate <60)
+                {   //Sekunti laskuri nakyy kun alle minuutti jaljella
+                    autoupdateLabel.Text = "Seuraavaan päivitykseen" + nextUpdate + "sek.";
+
+                    //Kun nollassa ladataan listaus ja laskuri nollautuu
+                    if (nextUpdate == 0)
+                    {
+                        autoupdateLabel.Text = "";
+                        nextUpdate = 80;
+                        await LoadDataFromRestAPI();
+                    }
+                }
+            }
         }
 
         // LISTAN HAKEMINEN BACKENDISTÄ
-        async void LoadDataFromRestAPI()
+        async Task LoadDataFromRestAPI()
         {
             
             // Latausilmoitus näkyviin
