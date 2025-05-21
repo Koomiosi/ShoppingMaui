@@ -1,25 +1,39 @@
-﻿namespace ShoppingMaui
+﻿using Newtonsoft.Json;
+using ShoppingBackend.Models;
+using System.Collections.ObjectModel;
+
+namespace ShoppingMaui
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
+            LoadDataFromRestAPI();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        // LISTAN HAKEMINEN BACKENDISTÄ
+        async void LoadDataFromRestAPI()
         {
-            count++;
+            
+            // Latausilmoitus näkyviin
+            Loading_label.IsVisible = true;
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://shoppingbackendtony-cpcgcpfhgjb7a5eh.swedencentral-01.azurewebsites.net/");
+            string json = await client.GetStringAsync("/api/shoplist/");
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            // Deserialisoidaan json muodosta C# muotoon
+            IEnumerable<Shoplist> ienumShoplist = JsonConvert.DeserializeObject<Shoplist[]>(json);
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            ObservableCollection<Shoplist> Shoplist = new ObservableCollection<Shoplist>(ienumShoplist);
+
+            itemList.ItemsSource = Shoplist;
+
+            Loading_label.IsVisible = false;
+            addPageBtn.IsVisible = true;
+            kerätty_nappi.IsVisible = true;
         }
+
     }
 
 }
