@@ -2,8 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShoppingMaui.AddingPage"
-             Title="AddingPage" BackgroundColor="Black"> 
-    
-    
-    
+             Title="AddingPage" BackgroundColor="Black">
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0" BackgroundColor="Black" Padding="20" BorderColor="Black" CornerRadius="0">
+            <Label Text="Kauppalista - tuotteen lisääminen" HorizontalTextAlignment="Center"
+           TextColor="Orange" FontSize="24"/>
+        </Frame>
+
+        <VerticalStackLayout Grid.Row="1">
+            <Entry x:Name="ItemField" BackgroundColor="DarkViolet" TextColor="Aquamarine" FontSize="26" Margin="20,5,20,5" Placeholder="Tavara" />
+            <Entry x:Name="AmountField" BackgroundColor="DarkViolet" TextColor="Aquamarine" FontSize="26" Margin="20,5,20,5" Placeholder="Lukumäärä" />
+            <Button x:Name="AddBtn" Clicked="AddBtn_Clicked" FontSize="26" Text="Tallenna" Padding="40" Margin="20,50,20,20" />
+        </VerticalStackLayout>
+
+        <Frame Grid.Row="2" BackgroundColor="Black" Padding="50,20,40,50" BorderColor="Black" VerticalOptions="EndAndExpand">
+            <Label Text="Sujuvaa ostosten hallintaa" TextColor="Orange" FontSize="20"/>
+        </Frame>
+
+    </Grid>
+
+
 </ContentPage>

@@ -37,13 +37,13 @@ namespace ShoppingMaui
         }
 
         // LISTAN HAKEMINEN BACKENDISTÄ
-        async Task LoadDataFromRestAPI()
+        public async Task LoadDataFromRestAPI()
         {
             
             // Latausilmoitus näkyviin
             Loading_label.IsVisible = true;
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://shoppingbackendtony-cpcgcpfhgjb7a5eh.swedencentral-01.azurewebsites.net/");
+            client.BaseAddress = new Uri("https://shoppingbackendtony-cpcgcpfhgjb7a5eh.swedencentral-01.azurewebsites.net");
             string json = await client.GetStringAsync("/api/shoplist/");
 
             // Deserialisoidaan json muodosta C# muotoon
@@ -60,8 +60,8 @@ namespace ShoppingMaui
 
         private async void addPageBtn_Clicked(object sender, EventArgs e)
         {
-            var addingPage = addingPage(this);
-            await Shell.Current.Navigation.PushModealAsync(addingPage);
+            var addingPage = new AddingPage(this);
+            await Shell.Current.Navigation.PushModalAsync(addingPage);
         }
 
     }
