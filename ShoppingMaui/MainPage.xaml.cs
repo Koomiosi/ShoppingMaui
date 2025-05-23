@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShoppingBackend.Models;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace ShoppingMaui
 {
@@ -56,6 +57,7 @@ namespace ShoppingMaui
             Loading_label.IsVisible = false;
             addPageBtn.IsVisible = true;
             kerätty_nappi.IsVisible = true;
+            refreshView.IsRefreshing = false;
         }
 
         private async void addPageBtn_Clicked(object sender, EventArgs e)
@@ -64,6 +66,33 @@ namespace ShoppingMaui
             await Shell.Current.Navigation.PushModalAsync(addingPage);
         }
 
+        private void refreshView_Refreshing(object sender, EventArgs e)
+        {
+            LoadDataFromRestAPI();
+        }
+
+        private void itemList_ItemSelected(object sender, EventArgs e)
+        {
+            Shoplist? selectedItem = itemList.SelectedItem as Shoplist;
+            kerätty_nappi.Text = "Poimi " + selectedItem?.Item;
+        }
+
+        async void kerätty_nappi_Clicked(object sender, EventArgs e)
+        {
+            Shoplist? selected = itemList.SelectedItem as Shoplist;
+
+            if (selected == null)
+            {
+                await DisplayAlert("Valinta puuttuu", "Valitse ensin poimittava tuote", "ok");
+                return;
+            }
+
+            bool answer = await DisplayAlert("Menikö oikein?", selected.Item + "kerätty?", "Yes! Kyllä meni!", "Ei, yritän uudestaan");
+            if (answer == false)
+            {
+                return;
+            }
+        }
     }
 
 }
