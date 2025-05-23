@@ -92,6 +92,21 @@ namespace ShoppingMaui
             {
                 return;
             }
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://shoppingbackendtony-cpcgcpfhgjb7a5eh.swedencentral-01.azurewebsites.net");
+            HttpResponseMessage res = await client.DeleteAsync("/api/shoplist/" + selected.Id);
+
+            if (res.StatusCode ==System.Net.HttpStatusCode.OK)
+            {
+                await LoadDataFromRestAPI();
+            }
+            else
+            {
+                await DisplayAlert("Tilapäinen virhe", "Joku muu on saattanut poistaa tuotteen sen jalkeen kun listauksesi on viimeksi paivittynyt.",
+                    "Lataa uudelleen.");
+                await LoadDataFromRestAPI();
+            }
         }
     }
 
